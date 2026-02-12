@@ -2,6 +2,8 @@
 
 A web-based demonstration of the rsync algorithm using the [librsync](https://librsync.org/) library. This project shows how efficient file synchronization works by transferring only the differences (deltas) between files rather than entire file contents.
 
+https://www.andrew.cmu.edu/course/15-749/READINGS/required/cas/tridgell96.pdf
+
 ## Overview
 
 This demo implements a client-server architecture where:
