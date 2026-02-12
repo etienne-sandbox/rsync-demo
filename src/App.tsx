@@ -1,6 +1,7 @@
 import { apply, signature } from "@dldc/librsync";
-import prettyBytes from "pretty-bytes";
 import { Fragment, useCallback, useEffect, useRef, useState } from "react";
+
+const formatKB = (bytes: number) => `${(bytes / 1000).toFixed(1)} kB`;
 
 export function App() {
   const [file, setFile] = useState<Uint8Array>(() => new Uint8Array(0));
@@ -79,7 +80,7 @@ export function App() {
           )}
         </pre>
       </div>
-      <div className="w-100 flex flex-col gap-4">
+      <div className="w-120 flex flex-col gap-4">
         <button
           className="rounded-md shadow-md bg-emerald-400 p-2 uppercase tracking-wider font-bold text-lg hover:bg-emerald-500"
           onClick={sync}
@@ -102,26 +103,24 @@ export function App() {
             Clear
           </button>
           <p className="mx-4 text-gray-700 flex flex-row justify-between">
-            <span className="text-gray-400 text-start w-20">Date</span>
-            <span className="text-gray-400 text-end w-20">Checksum</span>
-            <span className="text-gray-400 text-end w-20">Patch</span>
-            <span className="text-gray-400 text-end w-20">File</span>
+            <span className="text-gray-400 text-start w-30">Date</span>
+            <span className="text-gray-400 text-end w-30">Checksum</span>
+            <span className="text-gray-400 text-end w-30">Patch</span>
+            <span className="text-gray-400 text-end w-30">File</span>
           </p>
           <div className="px-4 flex flex-col gap-1 overflow-auto flex-1">
             {logs.map((log, index) => (
               <p key={index} className="text-gray-700 flex flex-row justify-between">
-                <span className="text-gray-400 inline-block w-20">
+                <span className="text-gray-400 inline-block w-30">
                   {log.time.toLocaleTimeString("fr-FR")}
                 </span>
-                <span className="font-bold inline-block w-20 text-end">
-                  ↑ {prettyBytes(log.checksum)}
+                <span className="font-bold inline-block w-30 text-end">
+                  {formatKB(log.checksum)} ↑
                 </span>
-                <span className="font-bold inline-block w-20 text-end">
-                  ↓ {prettyBytes(log.patch)}
+                <span className="font-bold inline-block w-30 text-end">
+                  {formatKB(log.patch)} ↓
                 </span>
-                <span className="font-bold inline-block w-20 text-end">
-                  {prettyBytes(log.file)}
-                </span>
+                <span className="font-bold inline-block w-30 text-end">{formatKB(log.file)}</span>
               </p>
             ))}
           </div>

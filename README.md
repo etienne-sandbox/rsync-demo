@@ -44,7 +44,6 @@ This approach is extremely efficient for large files with small changes, as demo
 - **Frontend**: React 19, TypeScript, Vite, Tailwind CSS 4
 - **Backend**: Node.js, Hono, TypeScript
 - **Crypto/Algorithm**: [@dldc/librsync](https://jsr.io/@dldc/librsync) (JavaScript port of librsync)
-- **Utilities**: pretty-bytes for human-readable file sizes
 
 ## Getting Started
 
