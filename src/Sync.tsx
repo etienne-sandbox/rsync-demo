@@ -1,7 +1,7 @@
-import { apply, signature } from "@dldc/librsync";
 import { Fragment, useCallback, useEffect, useRef, useState } from "react";
 
 import { Card } from "./Card";
+import { sync } from "./sync";
 
 const formatKB = (bytes: number) => (
   <Fragment>
@@ -31,32 +31,18 @@ export function Sync() {
     fileRef.current = file;
   }, [file]);
 
-  const sync = useCallback(async () => {
+  const triggerSync = useCallback(async () => {
     const file = fileRef.current;
-    const checksum = signature(file);
-    console.log(checksum);
     const controller = new AbortController();
     const signal = controller.signal;
-    // log(`↑ Sending checksum`, checksum.byteLength);
-    fetch("http://localhost:3030", {
-      signal,
-      body: checksum,
-      method: "POST",
-    }).then(async (response) => {
-      if (!response.ok) {
-        throw new Error(response.statusText);
-      }
-      const patch = new Uint8Array(await response.arrayBuffer());
-      // log(`↓ Received patch`, patch.byteLength);
-      if (controller.signal.aborted) {
+    sync(signal, file).then((result) => {
+      if (!result || signal.aborted) {
         return;
       }
-      const patched = apply(file, patch);
-      // log(`Patched file`, patched.byteLength);
+      const { checksum, patch, patched } = result;
       log(checksum.byteLength, patch.byteLength, patched.byteLength);
       setFile(patched);
     });
-
     return () => {
       controller.abort();
     };
@@ -66,12 +52,12 @@ export function Sync() {
     if (!auto) {
       return;
     }
-    sync();
-    const timer = setInterval(sync, 1000);
+    triggerSync();
+    const timer = setInterval(triggerSync, 1000);
     return () => {
       clearInterval(timer);
     };
-  }, [auto, sync]);
+  }, [auto, triggerSync]);
 
   const fileContent = new TextDecoder().decode(file);
 
@@ -89,7 +75,7 @@ export function Sync() {
       <div className="flex flex-col gap-4">
         <button
           className="rounded-md shadow-md bg-emerald-400 p-2 uppercase tracking-wider font-bold text-lg hover:bg-emerald-500"
-          onClick={sync}
+          onClick={triggerSync}
         >
           Sync
         </button>

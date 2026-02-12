@@ -16,8 +16,9 @@ app.post("/", async (c) => {
     const checksum = new Uint8Array(await c.req.arrayBuffer());
     console.log(`Server received checksum: ${formatKB(checksum.byteLength)}`);
     const file = await readFile("./data/synced.txt");
-    console.log(`Server read file: ${formatKB(file.byteLength)}`);
-    const patch = diff(checksum, file);
+    const paddedFile = padToBlockSize(file, 1024);
+    console.log(`Server read file: ${formatKB(paddedFile.byteLength)}`);
+    const patch = diff(checksum, paddedFile);
     console.log(`Sending patch: ${formatKB(patch.byteLength)}`);
     return c.body(patch, 200, { "Content-Type": "application/octet-stream" });
   } catch (error) {
@@ -29,3 +30,13 @@ app.post("/", async (c) => {
 serve({ fetch: app.fetch, port: PORT }, () => {
   console.log(`Server running on port http://localhost:${PORT}`);
 });
+
+function padToBlockSize(file: Uint8Array<ArrayBufferLike>, blockSize: number) {
+  const remainder = file.length % blockSize;
+  if (remainder === 0) {
+    return file;
+  }
+  const padded = new Uint8Array(file.length + (blockSize - remainder));
+  padded.set(file);
+  return padded;
+}
