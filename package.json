@@ -8,6 +8,8 @@
     "start:server": "tsx watch ./server/index.ts",
     "start:client": "vite",
     "typecheck": "tsc --noEmit",
+    "lint": "oxlint",
+    "lint:fix": "oxlint --fix",
     "fmt": "oxfmt",
     "fmt:check": "oxfmt --check"
   },
@@ -27,6 +29,7 @@
     "@vitejs/plugin-react-swc": "^4.2.3",
     "concurrently": "^9.2.1",
     "oxfmt": "^0.31.0",
+    "oxlint": "^1.46.0",
     "tailwindcss": "^4.1.18",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3",

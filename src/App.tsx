@@ -53,7 +53,7 @@ export function App() {
     return () => {
       controller.abort();
     };
-  }, []);
+  }, [log]);
 
   useEffect(() => {
     if (!auto) {
