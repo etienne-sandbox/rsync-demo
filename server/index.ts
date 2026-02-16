@@ -1,10 +1,8 @@
-import { diff } from "@dldc/librsync";
 import { serve } from "@hono/node-server";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
-import { readFile } from "node:fs/promises";
 
-const formatKB = (bytes: number) => `${(bytes / 1000).toFixed(1)} kB`;
+import { sync } from "./sync";
 
 const PORT = 3030;
 
@@ -13,14 +11,7 @@ const app = new Hono();
 app.use("*", cors());
 app.post("/", async (c) => {
   try {
-    const checksum = new Uint8Array(await c.req.arrayBuffer());
-    console.log(`Server received checksum: ${formatKB(checksum.byteLength)}`);
-    const file = await readFile("./data/synced.txt");
-    const paddedFile = padToBlockSize(file, 1024);
-    console.log(`Server read file: ${formatKB(paddedFile.byteLength)}`);
-    const patch = diff(checksum, paddedFile);
-    console.log(`Sending patch: ${formatKB(patch.byteLength)}`);
-    return c.body(patch, 200, { "Content-Type": "application/octet-stream" });
+    return await sync(c);
   } catch (error) {
     console.error(error);
     return c.text("Internal Server Error", 500);
@@ -30,13 +21,3 @@ app.post("/", async (c) => {
 serve({ fetch: app.fetch, port: PORT }, () => {
   console.log(`Server running on port http://localhost:${PORT}`);
 });
-
-function padToBlockSize(file: Uint8Array<ArrayBufferLike>, blockSize: number) {
-  const remainder = file.length % blockSize;
-  if (remainder === 0) {
-    return file;
-  }
-  const padded = new Uint8Array(file.length + (blockSize - remainder));
-  padded.set(file);
-  return padded;
-}

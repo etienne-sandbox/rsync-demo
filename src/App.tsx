@@ -3,7 +3,7 @@ import { Fragment, useCallback, useEffect, useRef, useState } from "react";
 import { Card } from "./Card";
 import { sync } from "./sync";
 
-const SHOW_AUTO_SYNC = false
+const SHOW_AUTO_SYNC = false;
 
 const formatKB = (bytes: number) => (
   <Fragment>
@@ -42,6 +42,9 @@ export function App() {
         return;
       }
       const { checksum, patch, patched } = result;
+      if (signal.aborted) {
+        return null;
+      }
       log(checksum.byteLength, patch.byteLength, patched.byteLength);
       setFile(patched);
     });
@@ -81,14 +84,16 @@ export function App() {
         >
           Sync
         </button>
-        {SHOW_AUTO_SYNC && <button
-          className={`rounded-md shadow-md p-2 uppercase tracking-wider font-bold text-lg ${
-            auto ? `bg-emerald-400 hover:bg-emerald-500` : `bg-gray-200 hover:bg-gray-300`
-          }`}
-          onClick={() => setAuto((auto) => !auto)}
-        >
-          {auto ? "Stop" : "Start"} auto sync
-        </button>}
+        {SHOW_AUTO_SYNC && (
+          <button
+            className={`rounded-md shadow-md p-2 uppercase tracking-wider font-bold text-lg ${
+              auto ? `bg-emerald-400 hover:bg-emerald-500` : `bg-gray-200 hover:bg-gray-300`
+            }`}
+            onClick={() => setAuto((auto) => !auto)}
+          >
+            {auto ? "Stop" : "Start"} auto sync
+          </button>
+        )}
         <Card className="flex-1 py-4 flex flex-col gap-4">
           <button
             className="mx-4 rounded-md bg-gray-200 text-gray-700 p-2 uppercase tracking-wider font-bold text-lg hover:bg-gray-300"
