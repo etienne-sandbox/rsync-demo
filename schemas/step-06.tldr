@@ -1087,9 +1087,9 @@
 			"typeName": "shape"
 		},
 		{
-			"x": 989.5990133945215,
-			"y": 5996.4411011174125,
-			"z": 0.08523839396704436,
+			"x": -1832.8957580213123,
+			"y": 1013.6069036033089,
+			"z": 0.19441616472051002,
 			"meta": {},
 			"id": "camera:page:page",
 			"typeName": "camera"
@@ -1685,33 +1685,7 @@
 		{
 			"editingShapeId": null,
 			"croppingShapeId": null,
-			"selectedShapeIds": [
-				"shape:e9U78IUVEZkAppKsByBW9",
-				"shape:GGzo0_YCcQSEpp4Rx6F86",
-				"shape:n68vmq8PLNkP64Fr8mP1U",
-				"shape:1PVkPwrhFMXP00XUhacjj",
-				"shape:J7IJL7subHFCkhn58derx",
-				"shape:WxPT05q48XugxRsGAPBkp",
-				"shape:UiwpnnlxhT15mRePVyuEt",
-				"shape:9dySWfSEDCPcMtjhsOWJ6",
-				"shape:NpXjJ9gAHCPh0rtFIRa_W",
-				"shape:FLFGIttqV_KLKxD4baFrE",
-				"shape:sM8m0I0KlVI6OCsdcGJZ1",
-				"shape:KV4nFPckMiFKA51I3UYS3",
-				"shape:1KzDY1-WN0ho43cHSf9So",
-				"shape:Q6_0cVPDxjntIMxYbg-uY",
-				"shape:gKlcobsACJF_T7uul1AWH",
-				"shape:ldQbTr5l3Hlc24UPiDVmk",
-				"shape:gQJK8y6SvGXSiNd6eRcsm",
-				"shape:pyOweTWXaU2GX__1CBwzH",
-				"shape:jt2jASO3dlN8gLU4BSzON",
-				"shape:KJSK5Dv9VAJxHZJge73K_",
-				"shape:vrWLHzOMZelheF-nFfV19",
-				"shape:G5Gh3Ch0JrhlTUhUNXbOP",
-				"shape:4jnf-o-D-imtzA9CX-dFG",
-				"shape:6j0KfDeoEzx8bOxvVGgOY",
-				"shape:2eo4EnTc92DZ2q8lUj8IS"
-			],
+			"selectedShapeIds": [],
 			"hoveredShapeId": null,
 			"erasingShapeIds": [],
 			"hintingShapeIds": [],
@@ -3525,17 +3499,7 @@
 		{
 			"followingUserId": null,
 			"opacityForNextShape": 1,
-			"stylesForNextShape": {
-				"tldraw:geo": "rectangle",
-				"tldraw:font": "mono",
-				"tldraw:size": "xl",
-				"tldraw:horizontalAlign": "middle",
-				"tldraw:verticalAlign": "middle",
-				"tldraw:dash": "draw",
-				"tldraw:color": "red",
-				"tldraw:fill": "none",
-				"tldraw:textAlign": "start"
-			},
+			"stylesForNextShape": {},
 			"brush": null,
 			"scribbles": [],
 			"cursor": {
@@ -3549,8 +3513,8 @@
 			"screenBounds": {
 				"x": 0,
 				"y": 0,
-				"w": 1090.833251953125,
-				"h": 855
+				"w": 1164,
+				"h": 714
 			},
 			"insets": [
 				false,
@@ -3565,7 +3529,7 @@
 			"isChatting": false,
 			"highlightedUserIds": [],
 			"isFocused": true,
-			"devicePixelRatio": 2.4000000953674316,
+			"devicePixelRatio": 2,
 			"isCoarsePointer": false,
 			"isHoveringCanvas": true,
 			"openMenus": [],
