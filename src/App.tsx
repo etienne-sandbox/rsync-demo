@@ -3,6 +3,8 @@ import { Fragment, useCallback, useEffect, useRef, useState } from "react";
 import { Card } from "./Card";
 import { sync } from "./sync";
 
+const SHOW_AUTO_SYNC = false
+
 const formatKB = (bytes: number) => (
   <Fragment>
     {(bytes / 1000).toFixed(1)} <span className="text-gray-400">kB</span>
@@ -79,14 +81,14 @@ export function App() {
         >
           Sync
         </button>
-        <button
+        {SHOW_AUTO_SYNC && <button
           className={`rounded-md shadow-md p-2 uppercase tracking-wider font-bold text-lg ${
             auto ? `bg-emerald-400 hover:bg-emerald-500` : `bg-gray-200 hover:bg-gray-300`
           }`}
           onClick={() => setAuto((auto) => !auto)}
         >
           {auto ? "Stop" : "Start"} auto sync
-        </button>
+        </button>}
         <Card className="flex-1 py-4 flex flex-col gap-4">
           <button
             className="mx-4 rounded-md bg-gray-200 text-gray-700 p-2 uppercase tracking-wider font-bold text-lg hover:bg-gray-300"
